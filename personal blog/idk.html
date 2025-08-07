@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow Blog</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #007bff;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+    }
+
+    .card-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card-date {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .pagination button {
+      padding: 6px 12px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pagination button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>My Personal Blog</h1>
+    <p>Insights, Stories, and Tech Adventures</p>
+  </header>
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="Search by title...">
+    <select id="category">
+      <option value="all">All Categories</option>
+      <option value="Tech">Tech</option>
+      <option value="Travel">Travel</option>
+      <option value="Food">Food</option>
+    </select>
+  </div>
+
+  <div class="posts" id="post-container"></div>
+  <div class="pagination">
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+  </div>
+
+  <script>
+    const posts = [
+      { title: "Exploring React", category: "Tech", img: "https://via.placeholder.com/300", desc: "A dive into React basics.", date: "2025-08-01" },
+      { title: "Tasting Italy", category: "Food", img: "https://via.placeholder.com/300", desc: "Food tour through Rome.", date: "2025-08-03" },
+      { title: "Desert Road Trip", category: "Travel", img: "https://via.placeholder.com/300", desc: "Adventures in the Sahara.", date: "2025-08-04" },
+      { title: "JavaScript Tips", category: "Tech", img: "https://via.placeholder.com/300", desc: "Useful JS tricks.", date: "2025-08-05" },
+      { title: "Paris Cafes", category: "Food", img: "https://via.placeholder.com/300", desc: "Best croissants ever!", date: "2025-08-06" },
+      { title: "Mountains Calling", category: "Travel", img: "https://via.placeholder.com/300", desc: "My journey to the Alps.", date: "2025-08-07" },
+    ];
+
+    let currentPage = 1;
+    const postsPerPage = 3;
+
+    const postContainer = document.getElementById("post-container");
+    const searchInput = document.getElementById("search");
+    const categorySelect = document.getElementById("category");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    function filterPosts() {
+      const keyword = searchInput.value.toLowerCase();
+      const category = categorySelect.value;
+      return posts.filter(post => {
+        const matchTitle = post.title.toLowerCase().includes(keyword);
+        const matchCategory = category === "all" || post.category === category;
+        return matchTitle && matchCategory;
+      });
+    }
+
+    function renderPosts() {
+      const filtered = filterPosts();
+      const start = (currentPage - 1) * postsPerPage;
+      const end = start + postsPerPage;
+      const paginated = filtered.slice(start, end);
+
+      postContainer.innerHTML = paginated.map(post => `
+        <div class="card">
+          <img src="${post.img}" alt="${post.title}">
+          <div class="card-body">
+            <div class="card-title">${post.title}</div>
+            <div class="card-date">${post.date}</div>
+            <div>${post.desc}</div>
+          </div>
+        </div>
+      `).join("");
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = end >= filtered.length;
+    }
+
+    searchInput.addEventListener("input", () => {
+      currentPage = 1;
+      renderPosts();
+    });
+
+    categorySelect.addEventListener("change", () => {
+      currentPage = 1;
+      renderPosts();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPosts();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentPage++;
+      renderPosts();
+    });
+
+    renderPosts();
+  </script>
+</body>
+
+</html>
