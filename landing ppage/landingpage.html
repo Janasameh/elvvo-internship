@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StreamSync - SaaS Landing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --accent: #2563eb;
+      --card: #f9fafb;
+      --muted: #6b7280;
+    }
+
+    body[data-theme="dark"] {
+      --bg: #1f2937;
+      --text: #f9fafb;
+      --accent: #3b82f6;
+      --card: #374151;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .toggle {
+      background: none;
+      border: 1.5px solid var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .toggle:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 3rem 2rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .features,
+    .pricing {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .testimonials .card {
+      text-align: center;
+    }
+
+    .testimonials .card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero p {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <header>
+    <div class="brand">StreamSync</div>
+    <button class="toggle" id="themeToggle">Toggle Theme</button>
+  </header>
+
+  <section class="hero">
+    <h1>Work smarter, not harder.</h1>
+    <p>StreamSync helps remote teams automate workflows, manage tasks, and deliver results—fast.</p>
+    <button class="cta">Get Started</button>
+  </section>
+
+  <section class="section features grid">
+    <div class="card">
+      <h3>Automation</h3>
+      <p>Eliminate repetitive tasks with powerful automations built into your workflows.</p>
+    </div>
+    <div class="card">
+      <h3>Real-time Chat</h3>
+      <p>Stay connected with your team using secure, real-time communication tools.</p>
+    </div>
+    <div class="card">
+      <h3>Insights</h3>
+      <p>Monitor performance and productivity with real-time dashboards and reports.</p>
+    </div>
+  </section>
+
+  <section class="section testimonials grid">
+    <div class="card">
+      <img src="https://i.pravatar.cc/100?img=3" alt="User" />
+      <p>“StreamSync changed how our team works. We deliver twice as fast.”</p>
+      <strong>— Alex M.</strong>
+    </div>
+    <div class="card">
+      <img src="https://i.pravatar.cc/100?img=5" alt="User" />
+      <p>“Super clean, intuitive, and fast. Couldn't ask for more.”</p>
+      <strong>— Taylor J.</strong>
+    </div>
+  </section>
+
+  <section class="section pricing grid">
+    <div class="card">
+      <h3>Starter</h3>
+      <p>$9/month — For small teams and freelancers</p>
+    </div>
+    <div class="card">
+      <h3>Pro</h3>
+      <p>$29/month — Best for growing startups and teams</p>
+    </div>
+    <div class="card">
+      <h3>Enterprise</h3>
+      <p>Custom pricing — Enterprise-grade features and support</p>
+    </div>
+  </section>
+
+  <section class="hero">
+    <h1>Ready to simplify your workflow?</h1>
+    <button class="cta">Start Free Trial</button>
+  </section>
+
+  <footer>
+    © 2025 StreamSync Inc. All rights reserved.
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const current = document.body.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', next);
+    });
+  </script>
+</body>
+</html>
